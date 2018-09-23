@@ -7,3 +7,4 @@ scss
 *.pyc
 img
 *.pdf
+.DS_Store
