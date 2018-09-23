@@ -1,12 +1,13 @@
 from jinja2 import Template
-from flask import Flask, request
+from flask import Flask, request, render_template
 import webbrowser
+import os
 
 app = Flask(__name__)
 
-with open('index.html','r') as file_h:
-    html_template = file_h.read()
-    template = Template(html_template)
+# with open('index.html','r') as file_h:
+#     html_template = file_h.read()
+#     template = Template(html_template)
 
 def argmin(values):
     return values.index(min(values))
@@ -25,7 +26,7 @@ def get_response(data):
         #     columns = data.split(",")
         #     rows.append(columns)
 
-    for line in data.split("\n"):
+    for line in data.split(";"):
         columns = line.split(",")
         rows.append(columns)
 
@@ -38,15 +39,12 @@ def get_response(data):
         del y_column[el_index]
         del rows[el_index]
 
-    output =  template.render(sorted_rows = sorted_rows)
-    with open('output.html','w') as file_h:
-        file_h.write(output)
-    webbrowser.open('output.html')
-    return output
+    # output =  template.render(sorted_rows = sorted_rows)
+    return render_template('index.html', sorted_rows = sorted_rows)
 
 
-@app.route('/', methods = ['POST'])
+
+@app.route('/', methods = ['GET'])
 def hello_world():
-    data = request.form['data']
+    data = request.args['data'][:-1]
     return get_response(data)
-
