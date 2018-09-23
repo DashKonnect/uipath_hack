@@ -5,10 +5,6 @@ import os
 
 app = Flask(__name__)
 
-# with open('index.html','r') as file_h:
-#     html_template = file_h.read()
-#     template = Template(html_template)
-
 def argmin(values):
     return values.index(min(values))
 
@@ -19,12 +15,6 @@ def column(arr, i):
 def get_response(data):
     rows = []
     sorted_rows = []
-# read the file
-    # with open("hello.txt","r") as file_h:
-        # for data in file_h:
-        #     data = data.strip()
-        #     columns = data.split(",")
-        #     rows.append(columns)
 
     for line in data.split(";"):
         columns = line.split(",")
@@ -39,8 +29,30 @@ def get_response(data):
         del y_column[el_index]
         del rows[el_index]
 
-    # output =  template.render(sorted_rows = sorted_rows)
-    return render_template('index.html', sorted_rows = sorted_rows)
+    print_rows = []
+    for i in range(len(sorted_rows)):
+        row = sorted_rows[i]
+
+        if i == 0:
+            print_rows.append([row])
+            continue
+
+
+        prev_row = sorted_rows[i-1]
+        current_y = int(row[1])
+        prev_y = int(prev_row[1])
+
+        
+
+        if prev_y <= current_y <= prev_y + 50:
+            print_rows[-1].append(row)
+        else:
+            print_rows.append([row])
+
+    print(sorted_rows)
+    print(print_rows)
+
+    return render_template('index.html', print_rows=print_rows)
 
 
 
