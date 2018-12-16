@@ -21,7 +21,7 @@ def get_response(data):
         rows.append(columns)
 
     y_column = column(rows,1)
-    y_column = map(int, y_column)
+    y_column = list(map(int, y_column))
     while y_column:
         el_index = argmin(y_column)
         element = rows[el_index]
