@@ -1,0 +1,1 @@
+width, right; x, y, width, height, <componenet>
