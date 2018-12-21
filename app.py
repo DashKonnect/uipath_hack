@@ -14,15 +14,15 @@ def column(arr, i):
 
 def get_response(data):
 
-    # TODO: get area of each
-    # sort by area
-    # start rendering fomn top
-    # see which are smallest
-    # see how many columns they belong to
-    # see how many companions it has and how many columns they require
-    # check if its nested by checking for bigger siblings
-    # check for siblings below or above
-        
+    full_width = data
+    components = []
+    sorted_components_y = sorted_components_by_y_axis(sorted_components)
+    #loop through components of first row
+    
+
+    # find number of columns
+
+
 
     return render_template('index.html', print_rows=print_rows)
 

@@ -1,0 +1,182 @@
+[
+    {
+        "type": "row",
+        "children": [
+            {
+                "type": "column",
+                "size": "12",
+                "start": 0,
+                "children": [
+                    {
+                        "type": "jumbotron"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "row",
+        "children": [
+            {
+                "type": "column",
+                "size": "6",
+                "start": 0,
+                "children": [
+                    {
+                        "type": "row",
+                        "children":[
+                            {
+                                "type": "column",
+                                "size": "12",
+                                "start": 0,
+                                "children": [
+                                    {
+                                        "type": "paragraph",
+                                        "width": 200,
+                                        "height": 300
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "row",
+                        "children": [
+                            {
+                                "type": "column",
+                                "size": "12",
+                                "start": 0,
+                                "children": [
+                                    {
+                                        "type": "button",
+                                        "width": 200,
+                                        "height": 50
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "column",
+                "size": "6",
+                "start": 6,
+                "children": [
+                    {
+                        "type": "image",
+                        "width": 500,
+                        "height": 300
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "row",
+        "children": [
+            {
+                "type": "column",
+                "size": "6",
+                "start": 0,
+                "children": [
+                    {
+                        "type": "row",
+                        "size": "6",
+                        "children": [
+                            {
+                                "type": "column",
+                                "size": "6",
+                                "start": 0,
+                                "children": [
+                                    {
+                                        "type": "image",
+                                        "width": 200,
+                                        "height": 300
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "column",
+                                "size": "6",
+                                "start": 6,
+                                "children": [
+                                    {
+                                        "type": "image",
+                                        "width": 200,
+                                        "height": 300
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "column",
+                "size": "6",
+                "start": 6,
+                "children": [
+                    {
+                        "type": "row",
+                        "children": [
+                            {
+                                "type": "column",
+                                "size": "6",
+                                "start": 0,
+                                "children": [
+                                    {
+                                        "type": "button",
+                                        "width": 200,
+                                        "height": 50
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "column",
+                                "size": "6",
+                                "start": 6,
+                                "children": [
+                                    {
+                                        "type": "button",
+                                        "width": 200,
+                                        "height": 50
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "row",
+                        "children": [
+                            {
+                                "type": "column",
+                                "size": "6",
+                                "start": 0,
+                                "children": [
+                                    {
+                                        "type": "button",
+                                        "width": 200,
+                                        "height": 50
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "column",
+                                "size": "6",
+                                "start": 0,
+                                "children": [
+                                    {
+                                        "type": "button",
+                                        "width": 200,
+                                        "height": 50
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
