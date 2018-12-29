@@ -1,6 +1,6 @@
 
 {% macro column_template(col) -%}
-    <div class="col-lg-{{ col['size'] }}">
+    <div class="col-md-{{ col['size'] }} offset-md-{{ col['offset'] }}">
         {% set children = col['children'] %}
         {% for component in children %}
          <!-- check if component is row -->
