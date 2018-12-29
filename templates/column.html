@@ -1,0 +1,16 @@
+
+{% macro column_template(col) -%}
+    <div class="col-lg-{{ col['size'] }}">
+        {% set children = col['children'] %}
+        {% for component in children %}
+         <!-- check if component is row -->
+            {% if component['type'] == 'row' %}
+                {% from 'row.html' import row_template %}
+                {{ row_template(component) }}
+            {% else %}
+                {% set type = component['type'] %}
+                {% include "_" + type + ".html" ignore missing %}
+            {% endif %}
+        {% endfor %}
+    </div>
+{%- endmacro %}

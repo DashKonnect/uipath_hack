@@ -1,0 +1,10 @@
+
+{% from 'column.html' import column_template %}
+{% macro row_template(row) -%}
+    <div class="row">
+        {% set columns = row['children'] %}
+        {% for column in columns %}
+            {{ column_template(column) }}
+        {% endfor %}
+    </div>
+{%- endmacro %}
