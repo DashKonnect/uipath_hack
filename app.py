@@ -22,15 +22,15 @@ def group_by_y_axis(components):
         y = component['y']
         height = component['height']
         y_end = y + height
-        row.append(component)
-        components.remove(component)
-        for other_component in components:
+        for other_component in components[1:]:
             o_y = other_component['y']
             o_height = other_component['height']
             other_y_end = o_y + o_height
             if y_end-50 < other_y_end < y_end+50:
                 row.append(other_component)
-                components.remove(other_component)
+        
+        row.append(component)
+        [components.remove(element) for element in row]
         rows.append(row)
     
     rows.sort(key = lambda x: x[0]['y'] + x[0]['height'])
