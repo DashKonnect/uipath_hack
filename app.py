@@ -1,10 +1,12 @@
 from jinja2 import Template
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 import webbrowser
 import json
 import os
 
 app = Flask(__name__)
+
+one_col_width = 0
 
 def argmin(values):
     return values.index(min(values))
@@ -14,23 +16,25 @@ def column(arr, i):
 
 def group_by_y_axis(components):
     rows = []
-    for component in components:
+    while len(components):
         row = []
+        component = components[0]
         y = component['y']
         height = component['height']
         y_end = y + height
         row.append(component)
-        components -= component
+        components.remove(component)
         for other_component in components:
-            o_y = component['y']
-            o_height = component['height']
+            o_y = other_component['y']
+            o_height = other_component['height']
             other_y_end = o_y + o_height
             if y_end-50 < other_y_end < y_end+50:
-                row += other_component
-                components.append(other_component)
+                row.append(other_component)
+                components.remove(other_component)
         rows.append(row)
     
-    return rows.sort(key = lambda x: x[0]['y'] + x[0]['height'])
+    rows.sort(key = lambda x: x[0]['y'] + x[0]['height'])
+    return rows
 
 # def spilt_main_rows(row):
 #     sum = row.sum(key = lambda x: x['width'])
@@ -40,13 +44,14 @@ def group_by_y_axis(components):
 def get_cols_nums(component):
     start_x = component['x']
     end_x = component['x'] + component['width']
-    return ( start_x / 12, end_x / 12 )
+    return ( start_x / one_col_width, end_x / one_col_width )
 
 def create_column(start, end):
     return {
         "type": "column",
-        "size": start - end + 1,
+        "size": end - start + 1,
         "start": start,
+        "offset": 0,
         "children": []
     }
 
@@ -58,7 +63,7 @@ def create_component(c_type, width, height):
             }
 
 def column_with_component(component):
-    c_type, width, height = component, component, component
+    c_type, width, height = component['type'], component['width'], component['height']
     column_nums = get_cols_nums(component)
     dsl_column = create_column(*column_nums)
     dsl_component = create_component(c_type, width, height)
@@ -71,9 +76,27 @@ def create_row():
         "children": []
     }
 
+def one_column_width(width):
+    return width / 12
+
+""" {
+    width: 500,
+    height: 300,
+    components: [
+        {
+            x: 200,
+            y: 200,
+            width: 100,
+            height: 100,
+            type: "image"
+        }
+    ]
+} """
 def get_response(data):
-    full_width = data
-    components = []
+    global one_col_width
+    full_width = data['width']
+    one_col_width = one_column_width(full_width)
+    components = data['components']
     rows = group_by_y_axis(components)
     # main_rows = filter(rows, spilt_main_rows)
         
@@ -87,7 +110,7 @@ def get_response(data):
             children.append(dsl_column)
             start_col = dsl_column['start']
             end_col = dsl_column['start'] + dsl_column['size']
-            column_list.remove(range(start_col, end_col))
+            column_list = filter(lambda x: x not in list(range(start_col, end_col)), column_list)
 
         for col_number in column_list:
             dsl_column = create_column(col_number, col_number)
@@ -95,13 +118,14 @@ def get_response(data):
 
         dsl.append(new_row)
 
+    # return jsonify(dsl)
     return render_template('index.html', dsl=dsl)
 
 
 
-@app.route('/', methods = ['GET'])
+@app.route('/', methods = ['POST'])
 def hello_world():
-    data = request.args['data'][:-1]
+    data = request.get_json()
     return get_response(data)
 
 @app.route('/test', methods = ['GET'])
