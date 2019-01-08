@@ -119,14 +119,32 @@ def get_response(data):
         dsl.append(new_row)
 
     # return jsonify(dsl)
-    return render_template('index.html', dsl=dsl)
+    return render_template('index.html', dsl=dsl) 
 
-
-
-@app.route('/', methods = ['POST'])
+@app.route('/', methods = ['POST', 'GET'])
 def hello_world():
-    data = request.get_json()
-    return get_response(data)
+    if request.method == 'POST':
+        data = request.get_json()
+        return get_response(data)
+    elif request.method == 'GET':
+        args = request.args.get('data')
+        data = args.split(";")
+        json_data = {}
+        json_data['components'] = []
+        for group in data:
+            values = group.split(",")
+            if len(values) == 2:
+                json_data['width'] = int(values[0])
+                json_data['height'] = int(values[-1])
+            else:
+                component = {}
+                component['x'] = int(values[0])
+                component['y'] = int(values[1])
+                component['width'] = int(values[2])
+                component['height'] = int(values[3])
+                component['type'] = values[-1]
+                json_data['components'].append(component)
+        return get_response(json_data)
 
 @app.route('/test', methods = ['GET'])
 def test():
